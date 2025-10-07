@@ -7,17 +7,17 @@ package com.revature.training.payment;
 public class App 
 {
     public static void main(String[] args) {
-        org.springframework.context.ApplicationContext context =
-            new org.springframework.context.support.ClassPathXmlApplicationContext("applicationcontext.xml");
+        org.springframework.context.annotation.AnnotationConfigApplicationContext context =
+            new org.springframework.context.annotation.AnnotationConfigApplicationContext("com.revature.training.payment");
 
         PaymentProcessor paymentProcessor = context.getBean("paymentProcessor", PaymentProcessor.class);
 
         // Use Credit Card
-        Payment creditCardPayment = (Payment) context.getBean("creditCardPayment");
+        Payment creditCardPayment = context.getBean("creditCardPayment", Payment.class);
         paymentProcessor.process(creditCardPayment);
 
         // Use PayPal
-        Payment paypalPayment = (Payment) context.getBean("payPalPayment");
+        Payment paypalPayment = context.getBean("payPalPayment", Payment.class);
         paymentProcessor.process(paypalPayment);
     }
 }
